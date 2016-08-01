@@ -152,9 +152,6 @@ function msg_processor(msg)
       sendMessage(msg.chat.id, action)
     end
     
-    	if msg.text "/start" then
-    		return "Welcome to FREE cloud hosting AGENT CLOUD"
-    		end
     if msg.text:match("^/cd (.*)$") then
 			local matches = { string.match(msg.text, "^/cd (.*)$") }
 			currect_folder = matches[1]
