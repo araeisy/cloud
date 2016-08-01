@@ -129,7 +129,7 @@ function bot_run()
 
 	bot = bot.result
 
-	local bot_info = "Username = @"..bot.username.."\nName = "..bot.first_name.."\nId = "..bot.id.." \n"
+	local bot_info = "یوزرنیم = @"..bot.username.."\nنام = "..bot.first_name.."\nایدی= "..bot.id.." \n"
 
 	print(bot_info)
 
@@ -154,17 +154,17 @@ function msg_processor(msg)
     if msg.text:match("^/cd (.*)$") then
 			local matches = { string.match(msg.text, "^/cd (.*)$") }
 			currect_folder = matches[1]
-			sendMessage(msg.chat.id, "Currect folder = "..BASE_FOLDER..currect_folder)
+			sendMessage(msg.chat.id, "مسیر فایل شما = "..BASE_FOLDER..currect_folder)
     end
     if msg.text:match("^/mkdir (.*)$") then
       local matches = { string.match(msg.text, "^/mkdir (.*)$") }
 			local action = io.popen('cd "'..BASE_FOLDER..currect_folder..'" && mkdir \''..matches[1]..'\''):read("*all")
-			sendMessage(msg.chat.id, "Created folder ")
+			sendMessage(msg.chat.id, "فایل مورد نظر ساخته شد ")
     end
 		if msg.text:match("^/rm (.*)$") then
 			local matches = { string.match(msg.text, "^/rm (.*)$") }
 			local action = io.popen('cd "'..BASE_FOLDER..currect_folder..'" && rm -f \''..matches[1]..'\''):read("*all")
-			sendMessage(msg.chat.id, "Deleted "..matches[1])
+			sendMessage(msg.chat.id, "پاک شد "..matches[1])
 		end
 		if msg.text:match("^/cat (.*)$") then
 			local matches = { string.match(msg.text, "^/cat (.*)$") }
@@ -174,12 +174,12 @@ function msg_processor(msg)
 		if msg.text:match("^/rmdir (.*)$") then
 			local matches = { string.match(msg.text, "^/rmdir (.*)$") }
 			local action = io.popen('cd "'..BASE_FOLDER..currect_folder..'" && rmdir \''..matches[1]..'\''):read("*all")
-			sendMessage(msg.chat.id, "Deleted "..matches[1])
+			sendMessage(msg.chat.id, "پاک شد "..matches[1])
 		end
 		if msg.text:match("^/touch (.*)$") then
 			local matches = { string.match(msg.text, "^/touch (.*)$") }
 			local action = io.popen('cd "'..BASE_FOLDER..currect_folder..'" && touch \''..matches[1]..'\''):read("*all")
-			sendMessage(msg.chat.id, "Created  file "..matches[1])
+			sendMessage(msg.chat.id, "فایل ساخته شد "..matches[1])
 		end
 		if msg.text:match("^/tofile ([^%s]+) (.*)$") then
 			local matches = { string.match(msg.text, "^/tofile ([^%s]+) (.*)$") }
@@ -187,7 +187,7 @@ function msg_processor(msg)
 			file:write(matches[2])
 			file:flush()
 			file:close()
-			sendMessage(msg.chat.id, "Done !")
+			sendMessage(msg.chat.id, "انجام شد !")
 		end
 		if msg.text:match("^/shell (.*)$") then
 			local matches = { string.match(msg.text, "^/shell (.*)$") }
@@ -197,25 +197,25 @@ function msg_processor(msg)
 		if msg.text:match("^/cp (.*) (.*)$") then
 			local matches = { string.match(msg.text, "^/cp (.*) (.*)$") }
 			local action = io.popen('cd "'..BASE_FOLDER..currect_folder..'" && cp -r \''..matches[1]..'\' \''..matches[2]..'\''):read("*all")
-			sendMessage(msg.chat.id, "Copied file "..matches[1])
+			sendMessage(msg.chat.id, "فایل کپی شد "..matches[1])
 		end
 		if msg.text:match("^/mv (.*) (.*)$") then
 			local matches = { string.match(msg.text, "^/mv (.*) (.*)$") }
 			local action = io.popen('cd "'..BASE_FOLDER..currect_folder..'" && mv \''..matches[1]..'\' \''..matches[2]..'\''):read("*all")
-			sendMessage(msg.chat.id, "Moved file "..matches[1])
+			sendMessage(msg.chat.id, "فایل انتقال داده شد "..matches[1])
 		end
 		if msg.text:match("^/upload (.*)$") then
 			local matches = { string.match(msg.text, "^/upload (.*)$") }
 			if io.popen('find '..BASE_FOLDER..currect_folder..matches[1]):read("*all") == '' then
-				sendMessage(msg.chat.id, "File does not exist")
+				sendMessage(msg.chat.id, "فایل مورد نظر در سرور موجود نیست")
 			else
-				sendMessage(msg.chat.id, "Uploading file "..matches[1])
+				sendMessage(msg.chat.id, "در حال آپلود فایل "..matches[1])
 				sendDocument(msg.chat.id, matches[1])
 			end
 		end
 		if msg.text:match("^/download (.*)$") or msg.text:match("^/download$") then--Turn your bot privacy off or it won't  work on chats(groups and supergroups)
 			if not msg.reply_to_message then
-				sendMessage(msg.chat.id, "Reply to something !")
+				sendMessage(msg.chat.id, "حتما ریپلی شود !")
 				return
 			end
 			local file = ""
@@ -256,7 +256,7 @@ function msg_processor(msg)
 			end
 
 			local download = download_to_file("https://api.telegram.org/file/bot"..bot_api_key.."/"..jres.result.file_path, filename)
-			sendMessage(msg.chat.id, "file downloaded")
+			sendMessage(msg.chat.id, "فایل با موفقیت دانلود شد")
 		end
 	end
 	return
@@ -270,7 +270,7 @@ while is_running do -- Start a loop witch receive messages.
 			msg_processor(v.message)
 		end
 	else
-		print("Conection failed")
+		print("مشکل در اتصال")
 	end
 
 end
