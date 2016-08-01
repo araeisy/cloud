@@ -151,6 +151,9 @@ function msg_processor(msg)
 			local action = io.popen('ls "'..BASE_FOLDER..currect_folder..'"'):read("*all")
       sendMessage(msg.chat.id, action)
     end
+    
+    	if msg.text "/start" then
+    		return "Welcome to FREE cloud hosting AGENT CLOUD"
     if msg.text:match("^/cd (.*)$") then
 			local matches = { string.match(msg.text, "^/cd (.*)$") }
 			currect_folder = matches[1]
